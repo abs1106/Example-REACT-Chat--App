@@ -1,42 +1,57 @@
-import{useState} from "react";
+import {useState} from 'react';
 
-const Messages = ({text}: {text: string}) => { //boiler plate code for messages component
+const Message = ({text}) => {
     return <>
-    <p>{text}</p>
+      <p>
+        {text}
+      </p>
     </>;
-
 }
 
 const App = () => {
+    //
+    // business logic
+    //
 
+    /*
+    const messages = [
+        "Argentina",
+        "Bolivia",
+        "Cambodia",
+    ];
+    */
 
+    const [messages, setMessages] = useState([]);
 
-// const messages =[
-//     " Argentina",
-//     " Peru",
-//     " Brazil",
+    return <>
+        <h1>
+            Chatroom
+        </h1>
 
-// ]
+        {
+            messages.map(
+                (text, index) => <Message key={index} text={text} />
+                )
+        }
 
-const [messages, setMessages] = useState([
-    " Argentina",
-    " Peru",
-    " Brazil",
+        <form onSubmit={(event) => {
+            event.preventDefault();
 
-]) //state variable to hold the messages array and a function to update it
+            // determine what the new message is
+            const new_message = event.target.incoming_text.value;
 
-  return<>
-  <h1>Chat Room </h1>
-    {
-        messages.map(
-            (text) => <Messages text={text} /> //rendering the messages component for each message in the messages array
-        )
-    }
+            // add the new message to the message state
+            setMessages([...messages, new_message]);
 
-
-  <input/>
-  <button>Send</button>
-  </>;
-    
+            // note: this is not best practice in react but it works for now
+            document.getElementById('incoming_text').value = '';
+        }}>
+        <input name='incoming_text' id='incoming_text' />
+        <button type='submit'>
+            send
+        </button>
+        </form>
+    </>;
 }
+
 export default App;
