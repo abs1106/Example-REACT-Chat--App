@@ -1,3 +1,8 @@
+.message {
+ border: 1px solid var(--border);
+  border-radius: 2px;
+}
+
 .counter {
   font-size: 16px;
   padding: 5px 10px;
